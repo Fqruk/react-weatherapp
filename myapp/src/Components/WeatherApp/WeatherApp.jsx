@@ -16,11 +16,11 @@ function WeatherApp() {
       <div className="weather">
         <div className="weather-section">
           <div className="degree">
-            <h1 style={{ fontSize:'5rem'}}>23°C</h1>
-            <h3 style={{ fontSize:'1.8rem'}}>giresun,keşap</h3>
+            <p>23°C</p>
+            <h4>giresun,keşap</h4>
           </div>
           <div className="weather-icon">
-            <TiWeatherShower style={{ fontSize:'10rem'}}></TiWeatherShower>
+            <TiWeatherShower></TiWeatherShower>
           </div>
         </div>
         <div className="weather-section">

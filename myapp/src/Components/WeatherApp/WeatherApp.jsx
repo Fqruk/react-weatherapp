@@ -8,32 +8,37 @@ import { TiWeatherShower, TiWeatherDownpour } from 'react-icons/ti';
 function WeatherApp() {
 
   const key = "861d864a8e24788a2f765481015907bd";
-
-  useEffect(() => {
-    async function getApi() {
-      try {
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=London&appid=${key}&units=metric`);
-        console.log(response);
-      } catch (error) {
-        console.error(error);
+  const [search , setSearch] = useState("");
+  const [city ,setCity] = useState({name:"" , main: {temp:0}});
+    useEffect(() => {
+      async function getApi() {
+          try {
+            const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${key}&units=metric`);
+            console.log(response);
+            setCity({...response.data, main : {temp:Math.round(response.data.main.temp)}});
+          } catch (error) {
+            console.error(error);
+          }
       }
-    }
-    getApi();
-  } , [])
+      getApi();
+    } , [search])
+    console.log(search)  
+  
+
+
 
   return (
     <div className="app">
       <Container>
         <div className="weather-search">
-          <input type="text" placeholder='search' className='search-input' />
-          <button className='search-button'><AiOutlineSearch style={{ fontSize: '3rem', color: '#09a0f2' }}></AiOutlineSearch></button>
+          <input onChange={(e) => setSearch(e.target.value)}  type="text" placeholder='search' className='search-input' />
         </div>
       </Container>
       <div className="weather">
         <div className="weather-section">
           <div className="degree">
-            <p>23°C</p>
-            <h4>giresun,keşap</h4>
+            <p>{city.main.temp}°C</p>
+            <h4>{city.name}</h4>
           </div>
           <div className="weather-icon">
             <TiWeatherShower></TiWeatherShower>
